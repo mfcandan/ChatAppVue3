@@ -20,7 +20,7 @@
               <MessageScreen />
             </div>
             <div v-else-if="!isMobile && !appStore?.selectedUserID">
-              <img src="cover.png" alt="cover" class="cover-img" />
+              <img :src='cover'  alt="cover" class="cover-img" />
             </div>
           </v-sheet>
         </v-col>
@@ -36,6 +36,8 @@
 import UsersChatHistory from "@/components/UsersChatHistory.vue";
 import MessageScreen from "@/components/MessageScreen.vue";
 import UserDetailDrawer from "@/components/UserDetailDrawer.vue";
+import cover from './assets/cover.png'
+
 import { useAppStore } from "@/store/app";
 import { ref } from "vue";
 const appStore = useAppStore();
