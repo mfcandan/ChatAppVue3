@@ -2,10 +2,16 @@
   <div class="messege-screen-wrapper">
     <!--UserFriendNavbar-->
     <div class="navbar-wrapper">
+      <v-icon
+        v-if="isMobile"
+        @click.stop="appStore.selectedUserID = null"
+        class="mr-1 ml-2"
+        >mdi-arrow-left</v-icon
+      >
       <v-list-item
         @click.stop="appStore.toggleDrawer"
         lines="two"
-        :prepend-avatar="user.avatar"
+        :prepend-avatar="user?.avatar"
         :title="user.name"
         :subtitle="user.lastSeen"
       ></v-list-item>
@@ -14,14 +20,12 @@
         <v-text-field
           v-model="searchText"
           clearable
-          placeholder="Search any text here"
-          prepend-icon="mdi-magnify"
+          placeholder="Search text"
+          :prepend-icon="isMobile ? '' : mdi - magnify"
           variant="solo"
           flat="true"
-          height="10px"
-          font-size="10px"
         />
-        <v-icon>mdi-dots-vertical</v-icon>
+        <v-icon v-if="!isMobile">mdi-dots-vertical</v-icon>
       </div>
     </div>
     <!--MessagingArea-->
@@ -56,7 +60,6 @@
                 type="text"
                 hide-details="auto"
                 @click:append="sendMessage"
-                @click:clear="clearMessage"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -71,14 +74,15 @@ import { ref, computed } from "vue";
 import { useAppStore } from "@/store/app";
 import { watch } from "vue";
 const appStore = useAppStore();
+const isMobile = ref(window.innerWidth < 768);
 const user = ref(
-  appStore.usersData.find((user) => user.id === appStore.selectedUserID)
+  appStore.usersData.find((user) => user.id === appStore?.selectedUserID)
 );
 const message = ref("");
 const searchText = ref("");
 
 watch(
-  () => appStore.selectedUserID,
+  () => appStore?.selectedUserID,
   (newVal) => {
     user.value = appStore.usersData.find((user) => user.id === newVal);
   }
@@ -124,7 +128,7 @@ const sendMessage = () => {
     };
 
     appStore.usersData
-      .find((user) => user.id === appStore.selectedUserID)
+      .find((user) => user.id === appStore?.selectedUserID)
       .messages.push(tempMsg);
 
     appStore.setLastMessage(tempMsg);

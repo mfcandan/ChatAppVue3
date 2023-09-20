@@ -14,7 +14,7 @@
       <div v-for="user in appStore.usersData" :key="user.id">
         <div
           class="user-card"
-          :class="appStore.selectedUserID === user.id ? 'selected' : ''"
+          :class="appStore?.selectedUserID === user.id ? 'selected' : ''"
           @click.stop="appStore.selectUser(user.id)"
         >
           <v-list-item

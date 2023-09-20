@@ -80,11 +80,11 @@ import { ref } from "vue";
 const appStore = useAppStore();
 
 const selectedUser = ref(
-  appStore.usersData.find((user) => user.id === appStore.selectedUserID)
+  appStore.usersData.find((user) => user.id === appStore?.selectedUserID)
 );
 
 watch(
-  () => appStore.selectedUserID,
+  () => appStore?.selectedUserID,
   (newVal) => {
     selectedUser.value = appStore.usersData.find((user) => user.id === newVal);
   }

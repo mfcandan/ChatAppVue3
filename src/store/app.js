@@ -4,7 +4,7 @@ export const useAppStore = defineStore("app", {
   state: () => {
     return {
       isDrawerOpen: false,
-      selectedUserID: 1000,
+      selectedUserID: null,
       usersData: [
         {
           id: 1000,
@@ -274,7 +274,8 @@ export const useAppStore = defineStore("app", {
             },
             {
               type: "user",
-              content: "İyiyim, teşekkür ederim. Sence bugün yağmur yağar mı? 🌧",
+              content:
+                "İyiyim, teşekkür ederim. Sence bugün yağmur yağar mı? 🌧",
               time: "22:10",
               status: "seen",
             },
